@@ -1,0 +1,6 @@
+<launch>
+
+  <node pkg="amigo_emergency_speakup" type="emergency_speakup" respawn="true" name="emergency_speakup">
+  </node>
+  
+</launch>
