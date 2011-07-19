@@ -16,18 +16,16 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
 {
 	if (msg->data && !button_state) 
 	{
-		speech_msg.data = string("Emergency button pressed");
+		speech_msg.data = string("My emergency button is pressed, I am very sorry for my behaviour.");
 		pub.publish(speech_msg);
 		button_state = true;
 	} 
 	else if (!msg->data && button_state) 
 	{
-		speech_msg.data = string("Emergency button released");
+		speech_msg.data = string("Emergency button released, let's go");
 		pub.publish(speech_msg);
 		button_state = false;
 	}
-	
-	
 }
 
 int main(int argc, char **argv)
