@@ -4,7 +4,7 @@
      amigo_emergency_speakup
 
   </description>
-  <author>Amigo</author>
+  <author>Janno Lunenburg</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/amigo_emergency_speakup</url>
