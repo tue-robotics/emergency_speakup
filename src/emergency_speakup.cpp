@@ -16,7 +16,22 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
 {
 	if (msg->data && !button_state) 
 	{
-		speech_msg.data = string("I may seem a little slow, but I had a rough night.");
+		int sentence=rand()%4;
+		switch(sentence)
+		{
+        case 0:
+			speech_msg.data = string("Let's pause here for a while");
+		case 1:
+        	speech_msg.data = string("Somebody touched a red button");
+		case 2:
+        	speech_msg.data = string("I may seem a little slow, but I had a rough night");
+		case 3:
+        	speech_msg.data = string("Let's pause here for a while");
+		case 4:
+        	speech_msg.data = string("Let's pause here for a while");
+		}
+
+		
 		pub.publish(speech_msg);
 		button_state = true;
 	} 
