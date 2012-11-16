@@ -21,14 +21,19 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
 		{
         case 0:
 			speech_msg.data = string("Let's pause here for a while");
+			break;
 		case 1:
         	speech_msg.data = string("Somebody touched a red button");
+        	break;
 		case 2:
         	speech_msg.data = string("I may seem a little slow, but I had a rough night");
+        	break;
 		case 3:
-        	speech_msg.data = string("Let's pause here for a while");
+        	speech_msg.data = string("I am sorry for my behaviour");
+        	break;
 		case 4:
-        	speech_msg.data = string("Let's pause here for a while");
+        	speech_msg.data = string("I am a bad Amigo");
+        	break;
 		}
 
 		
@@ -37,7 +42,26 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
 	} 
 	else if (!msg->data && button_state) 
 	{
-		speech_msg.data = string("Let's move on");
+		int sentence=rand()%4;
+		switch(sentence)
+		{
+        case 0:
+			speech_msg.data = string("Let's move on");
+			break;
+		case 1:
+        	speech_msg.data = string("Here we go again");
+        	break;
+		case 2:
+        	speech_msg.data = string("I'll try to do better this time");
+        	break;
+		case 3:
+        	speech_msg.data = string("my emergency button is released again");
+        	break;
+		case 4:
+        	speech_msg.data = string("Lets make this fun");
+        	break;
+		}
+		//speech_msg.data = string("Let's move on");
 		pub.publish(speech_msg);
 		button_state = false;
 	}
