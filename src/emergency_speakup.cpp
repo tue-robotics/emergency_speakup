@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 	ros::NodeHandle n;
 	
 	sub = n.subscribe("/emergency_switch", 1, emergencyCallback);
-	pub = n.advertise<std_msgs::String>("/amigo_speak_up", 50);
+	pub = n.advertise<std_msgs::String>("/text_to_speech/input", 50);
 	
 	time_init = ros::Time::now();	
 	
