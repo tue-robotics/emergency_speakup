@@ -16,7 +16,7 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
 {
 	if (msg->data && !button_state) 
 	{
-		int sentence=rand()%5;
+		int sentence=rand()%6;
 		switch(sentence)
 		{
         case 0:
@@ -33,6 +33,9 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
         	break;
 		case 4:
         	speech_msg.data = string("I am a bad Amigo");
+        	break;
+		case 5:
+        	speech_msg.data = string("Stop. Hammertime!");
         	break;
 		}
 
