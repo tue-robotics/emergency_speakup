@@ -13,6 +13,7 @@ include_directories(
 )
 
 add_executable(emergency_speakup src/emergency_speakup.cpp)
+target_link_libraries(emergency_speakup ${catkin_LIBRARIES})
 
 
 
