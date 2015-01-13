@@ -75,10 +75,11 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
 int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "emergency_speakup");
-	ros::NodeHandle n;
+	ros::NodeHandle n("~");
+    ros::NodeHandle globalNh;
 	
-	sub = n.subscribe("/emergency_switch", 1, emergencyCallback);
-	pub = n.advertise<std_msgs::String>("/text_to_speech/input", 50);
+	sub = globalNh.subscribe("emergency_switch", 1, emergencyCallback);
+	pub = globalNh.advertise<std_msgs::String>("text_to_speech/input", 50);
 	
 	time_init = ros::Time::now();	
 	
