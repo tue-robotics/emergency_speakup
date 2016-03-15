@@ -4,69 +4,43 @@
 
 using namespace std;
 
-ros::Time time_init, time_current;
 ros::Publisher pub;
 ros::Subscriber sub;
 bool alarm_state = false;
 std_msgs::String speech_msg;
 bool button_state = false;
 
-
 void emergencyCallback(const std_msgs::BoolPtr&  msg)
 {
+    // Emergency button pressed
 	if (msg->data && !button_state) 
 	{
-		int sentence=rand()%6;
-		switch(sentence)
-		{
-        case 0:
-			speech_msg.data = string("Let's pause here for a while");
-			break;
-		case 1:
-        	speech_msg.data = string("Somebody touched a red button");
-        	break;
-		case 2:
-        	speech_msg.data = string("I may seem a little slow, but I had a rough night");
-        	break;
-		case 3:
-        	speech_msg.data = string("I am sorry for my behaviour");
-        	break;
-		case 4:
-        	speech_msg.data = string("I am a bad Amigo");
-        	break;
-		case 5:
-        	speech_msg.data = string("Stop. Hammertime!");
-        	break;
-		}
+        std::vector<std::string> sentences;
+        sentences.push_back("Let's pause here for a while");
+        sentences.push_back("Somebody touched a red button");
+        sentences.push_back("I may seem a little slow, but I had a rough night");
+        sentences.push_back("I am sorry for my behaviour");
+        sentences.push_back("I am a bad Amigo");
+        sentences.push_back("Stop. Hammertime!");
+        sentences.push_back("I am getting too old for this shit!");
 
-		
+        speech_msg.data = sentences[rand() % sentences.size()];
 		pub.publish(speech_msg);
 		button_state = true;
 	} 
+
+    // Emergency button released
 	else if (!msg->data && button_state) 
 	{
-		int sentence=rand()%6;
-		switch(sentence)
-		{
-        case 0:
-			speech_msg.data = string("Let's move on");
-			break;
-		case 1:
-        	speech_msg.data = string("Here we go again");
-        	break;
-		case 2:
-        	speech_msg.data = string("I'll try to do better this time");
-        	break;
-		case 3:
-        	speech_msg.data = string("my emergency button is released again");
-        	break;
-		case 4:
-        	speech_msg.data = string("Lets make this fun");
-        	break;
-        case 5:
-			speech_msg.data = string("Lets get ready to rumble");
-		}
-		//speech_msg.data = string("Let's move on");
+        std::vector<std::string> sentences;
+        sentences.push_back("Let's move on");
+        sentences.push_back("Here we go again");
+        sentences.push_back("I'll try to do better this time");
+        sentences.push_back("My emergency button is released again");
+        sentences.push_back("Lets make this fun");
+        sentences.push_back("Lets get ready to rumble");
+
+        speech_msg.data = sentences[rand() % sentences.size()];
 		pub.publish(speech_msg);
 		button_state = false;
 	}
@@ -80,8 +54,6 @@ int main(int argc, char **argv)
 	
 	sub = globalNh.subscribe("emergency_switch", 1, emergencyCallback);
 	pub = globalNh.advertise<std_msgs::String>("text_to_speech/input", 50);
-	
-	time_init = ros::Time::now();	
 	
 	ros::Rate loop_rate(1.0);
 
