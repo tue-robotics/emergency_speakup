@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include <std_msgs/String.h>
 #include <std_msgs/Bool.h>
+#include <time.h>
 
 using namespace std;
 
@@ -51,6 +52,7 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "emergency_speakup");
 	ros::NodeHandle n("~");
     ros::NodeHandle globalNh;
+    srand(time(NULL));
 	
 	sub = globalNh.subscribe("emergency_switch", 1, emergencyCallback);
 	pub = globalNh.advertise<std_msgs::String>("text_to_speech/input", 50);
