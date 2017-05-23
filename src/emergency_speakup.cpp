@@ -40,6 +40,7 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
         sentences.push_back("My emergency button is released again");
         sentences.push_back("Lets make this fun");
         sentences.push_back("Lets get ready to rumble");
+        sentences.push_back("You will respect my autonomy!");
 
         speech_msg.data = sentences[rand() % sentences.size()];
 		pub.publish(speech_msg);
