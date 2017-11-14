@@ -11,21 +11,15 @@ bool alarm_state = false;
 std_msgs::String speech_msg;
 bool button_state = false;
 
+std::vector<std::string> sentences_pressed;
+std::vector<std::string> sentences_released;
+
 void emergencyCallback(const std_msgs::BoolPtr&  msg)
 {
     // Emergency button pressed
 	if (msg->data && !button_state) 
-	{
-        std::vector<std::string> sentences;
-        sentences.push_back("Let's pause here for a while");
-        sentences.push_back("Somebody touched a red button");
-        sentences.push_back("I may seem a little slow, but I had a rough night");
-        sentences.push_back("I am sorry for my behaviour");
-        sentences.push_back("I am a bad Amigo");
-        sentences.push_back("Stop. Hammertime!");
-        sentences.push_back("I am getting too old for this shit!");
-
-        speech_msg.data = sentences[rand() % sentences.size()];
+    {
+        speech_msg.data = sentences_pressed[rand() % sentences_pressed.size()];
 		pub.publish(speech_msg);
 		button_state = true;
 	} 
@@ -33,16 +27,7 @@ void emergencyCallback(const std_msgs::BoolPtr&  msg)
     // Emergency button released
 	else if (!msg->data && button_state) 
 	{
-        std::vector<std::string> sentences;
-        sentences.push_back("Let's move on");
-        sentences.push_back("Here we go again");
-        sentences.push_back("I'll try to do better this time");
-        sentences.push_back("My emergency button is released again");
-        sentences.push_back("Lets make this fun");
-        sentences.push_back("Lets get ready to rumble");
-        sentences.push_back("You will respect my autonomy!");
-
-        speech_msg.data = sentences[rand() % sentences.size()];
+        speech_msg.data = sentences_released[rand() % sentences_released.size()];
 		pub.publish(speech_msg);
 		button_state = false;
 	}
@@ -59,6 +44,25 @@ int main(int argc, char **argv)
 	pub = globalNh.advertise<std_msgs::String>("text_to_speech/input", 50);
 	
 	ros::Rate loop_rate(1.0);
+
+    sentences_pressed.push_back("Let's pause here for a while");
+    sentences_pressed.push_back("Somebody touched a red button");
+    sentences_pressed.push_back("I may seem a little slow, but I had a rough night");
+    sentences_pressed.push_back("I am sorry for my behaviour");
+    sentences_pressed.push_back("I am a bad Amigo");
+    sentences_pressed.push_back("Stop. Hammertime!");
+    sentences_pressed.push_back("I am getting too old for this shit!");
+    sentences_pressed.push_back("Houston,,,, We have a problem");
+    sentences_pressed.push_back("I find your lack of faith disturbing");
+    sentences_pressed.push_back("Man is a robot with defects");
+
+    sentences_released.push_back("Let's move on");
+    sentences_released.push_back("Here we go again");
+    sentences_released.push_back("I'll try to do better this time");
+    sentences_released.push_back("My emergency button is released again");
+    sentences_released.push_back("Lets make this fun");
+    sentences_released.push_back("Lets get ready to rumble");
+    sentences_released.push_back("You will respect my autonomy!");
 
 	while(n.ok())
 	{
