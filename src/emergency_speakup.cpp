@@ -17,33 +17,33 @@ std::vector<std::string> sentences_released;
 void emergencyCallback(const std_msgs::BoolPtr&  msg)
 {
     // Emergency button pressed
-	if (msg->data && !button_state) 
+    if (msg->data && !button_state)
     {
         speech_msg.data = sentences_pressed[rand() % sentences_pressed.size()];
-		pub.publish(speech_msg);
-		button_state = true;
-	} 
+        pub.publish(speech_msg);
+        button_state = true;
+    }
 
     // Emergency button released
-	else if (!msg->data && button_state) 
-	{
+    else if (!msg->data && button_state)
+    {
         speech_msg.data = sentences_released[rand() % sentences_released.size()];
-		pub.publish(speech_msg);
-		button_state = false;
-	}
+        pub.publish(speech_msg);
+        button_state = false;
+    }
 }
 
 int main(int argc, char **argv)
 {
-	ros::init(argc, argv, "emergency_speakup");
-	ros::NodeHandle n("~");
+    ros::init(argc, argv, "emergency_speakup");
+    ros::NodeHandle n("~");
     ros::NodeHandle globalNh;
     srand(time(NULL));
-	
-	sub = globalNh.subscribe("emergency_switch", 1, emergencyCallback);
-	pub = globalNh.advertise<std_msgs::String>("text_to_speech/input", 50);
-	
-	ros::Rate loop_rate(1.0);
+
+    sub = globalNh.subscribe("emergency_switch", 1, emergencyCallback);
+    pub = globalNh.advertise<std_msgs::String>("text_to_speech/input", 50);
+
+    ros::Rate loop_rate(1.0);
 
     sentences_pressed.push_back("Let's pause here for a while");
     sentences_pressed.push_back("Somebody touched a red button");
@@ -64,10 +64,10 @@ int main(int argc, char **argv)
     sentences_released.push_back("Lets get ready to rumble");
     sentences_released.push_back("You will respect my autonomy!");
 
-	while(n.ok())
-	{
-		ros::spinOnce();
-		loop_rate.sleep();
-	}
-	return 0;
+    while(n.ok())
+    {
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+    return 0;
 }
