@@ -55,7 +55,8 @@ int main(int argc, char **argv)
     sentences_pressed.push_back("Houston,,,, We have a problem");
     sentences_pressed.push_back("I find your lack of faith disturbing");
     sentences_pressed.push_back("Man is a robot with defects");
-    sentences_pressed.push_back("If at first you don't succeed, we have a lot in common");
+    sentences_pressed.push_back("It is not a bug,,,,, it is a feature!");
+    sentences_pressed.push_back("If at first you do not succeed,,, we have a lot in common");
 
     sentences_released.push_back("Let's move on");
     sentences_released.push_back("Here we go again");
