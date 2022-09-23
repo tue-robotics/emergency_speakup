@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(emergency_speakup)
 
 add_compile_options(-Wall -Werror=all)
@@ -17,6 +17,3 @@ include_directories(
 
 add_executable(emergency_speakup src/emergency_speakup.cpp)
 target_link_libraries(emergency_speakup ${catkin_LIBRARIES})
-
-
-
